@@ -24,6 +24,7 @@ class DocumentWithApollo extends Document {
 
     /**
      * Render the page through Apollo's `getDataFromTree` so the cache is populated.
+     * Unfortunately this renders the page twice per request... There may be a way around doing this, but I haven't quite ironed that out yet.
      */
     await getDataFromTree(<ctx.AppTree {...ctx.appProps} />);
 
@@ -37,7 +38,7 @@ class DocumentWithApollo extends Document {
      */
     const apolloState = apolloClient.extract();
 
-    console.log("document!", Object.keys(apolloState)); //, initialProps.html);
+    console.log("document!", Object.keys(apolloState));
 
     return { ...initialProps, apolloState };
   }
