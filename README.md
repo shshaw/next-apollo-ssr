@@ -6,6 +6,14 @@ This approach uses built-in methods from Next.js and Apollo to server-side rende
 
 See comments in \_document.js and \_apollo.js for the most important bits.
 
+## Advantages
+
+- Relatively simple to implement
+- Query as normal with `useQuery`; no duplication or special methods for SSR queries
+- No special client-side detection/rendering needed in most cases
+- Cache hydration so the client doesn't have to re-query data the server already fetched, but the client-side query & data will update properly with changes.
+- Can enable/disable SSR for all queries (ApolloClient `defaultOptions`) or only certain ones ( `useQuery(..., { ssr: true|false })` ) to optimize page delivery
+
 ## Demo:
 
 - Live preview: https://xubfl.sse.codesandbox.io/
