@@ -1,4 +1,4 @@
-import { ApolloClient, InMemoryCache } from "@apollo/client";
+import { ApolloClient, InMemoryCache, gql } from "@apollo/client";
 
 const isServer = typeof window === "undefined";
 const windowApolloState = !isServer && window.__NEXT_DATA__.apolloState;
@@ -19,3 +19,13 @@ export function getApolloClient() {
 
   return CLIENT;
 }
+
+export const QUERY = gql`
+  query Jobs {
+    jobs {
+      id
+      title
+      postedAt
+    }
+  }
+`;
