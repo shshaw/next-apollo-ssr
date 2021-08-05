@@ -2,7 +2,7 @@
 
 The [recommended Apollo method for Server-Side Rendering in Next.js](https://www.apollographql.com/blog/apollo-client/next-js/next-js-getting-started/) involves duplicating queries, separate code for server and client, and a bunch of added complications.
 
-This approach uses built-in approaches from Next.js and Apollo to server-side render GraphQL queries and fill the Apollo Cache so the client doesn't have to refetch the data.
+This approach uses built-in methods from Next.js and Apollo to server-side render GraphQL queries and fill the Apollo Cache so the client doesn't have to refetch the data.
 
 See comments in \_document.js and \_apollo.js for the most important bits.
 
