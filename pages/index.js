@@ -1,22 +1,6 @@
 import { useQuery, gql } from "@apollo/client";
 import React, { useEffect, useState } from "react";
 
-// const QUERY = gql`
-//   query Countries {
-//     country(code: "BR") {
-//       name
-//       native
-//       capital
-//       emoji
-//       currency
-//       languages {
-//         code
-//         name
-//       }
-//     }
-//   }
-// `;
-
 const QUERY = gql`
   query Jobs {
     jobs {
