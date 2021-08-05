@@ -1,4 +1,4 @@
-import { useQuery, gql } from "@apollo/client";
+import { useQuery, gql, NetworkStatus } from "@apollo/client";
 import React, { useEffect, useState } from "react";
 
 const QUERY = gql`
@@ -6,30 +6,61 @@ const QUERY = gql`
     jobs {
       id
       title
-      locationNames
     }
   }
 `;
 
 export default function IndexPage() {
-  const { data, loading, error } = useQuery(QUERY);
-  const list = data?.jobs || [];
-  console.log({ loading, data, error });
+  const { data, loading, networkStatus, error, refetch } = useQuery(QUERY, {
+    notifyOnNetworkStatusChange: true
+  });
 
+  console.log({ loading, data, error, refetch });
+
+  // On page load, the `networkStatus` should be NetworkStatus.ready ( `7` ) if the data is in the cache, and the page should not need to re-render.
   const [cached, setCached] = useState(true);
   useEffect(() => {
-    if (loading) setCached(false);
-  }, [loading]);
+    if (networkStatus !== NetworkStatus.ready) setCached(false);
+  }, [networkStatus]);
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+  if (loading) return "Loading...";
 
   return (
     <div>
-      <h1>Apollo GraphQL Server-Side Rendering</h1>
+      <h1>Next.js Server-Side Rendering with Apollo GraphQL</h1>
       <p>
-        {cached ? "Data was cached from SSR" : "Data was not cached from SSR"}
+        <strong>
+          A simple approach to server-side rendering in Next.js with Apollo
+          GraphQL, featuring no duplicate queries or complicated client/server
+          logic, cache hydration and live queries for the client.
+        </strong>
+      </p>
+
+      <p>
+        Data provided by{" "}
+        <a
+          href="https://api.graphql.jobs/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          https://api.graphql.jobs/
+        </a>
+        .
+      </p>
+
+      <p>
+        This page's data was fetched on the{" "}
+        <strong>{cached ? "Next.js server" : "client"}</strong>.<br />
+        Network Status: <strong>{networkStatus}</strong>{" "}
+        <button
+          onClick={() =>
+            refetch({
+              fetchPolicy: "network-only"
+            })
+          }
+        >
+          Refetch
+        </button>
       </p>
 
       <div
@@ -38,7 +69,7 @@ export default function IndexPage() {
           grid: "auto / repeat(auto-fit, minmax(15em,1fr))"
         }}
       >
-        {list.map((item) => {
+        {[...data?.jobs].map((item) => {
           return (
             <ul key={item.id}>
               {Object.entries(item).map(([key, value]) => {

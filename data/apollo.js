@@ -11,7 +11,7 @@ let CLIENT;
 export function getApolloClient() {
   if (!CLIENT) {
     CLIENT = new ApolloClient({
-      ssrMode: true,
+      ssrMode: isServer,
       uri: "https://api.graphql.jobs/",
       cache: new InMemoryCache().restore(windowApolloState || {})
     });
