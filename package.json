@@ -1,5 +1,5 @@
 {
-  "name": "nextjs-apollo-ssr",
+  "name": "wip-next-apollo-ssr",
   "version": "1.0.0",
   "scripts": {
     "dev": "next",
@@ -16,5 +16,5 @@
   "license": "MIT",
   "devDependencies": {},
   "keywords": [],
-  "description": "Next.js Server-Side Rendering for Apollo GraphQL data."
+  "description": ""
 }

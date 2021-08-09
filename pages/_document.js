@@ -16,11 +16,13 @@ class DocumentWithApollo extends Document {
   }
 
   static async getInitialProps(ctx) {
+    const startTime = Date.now();
+
     /**
      * Initialize and get a reference to ApolloClient, which is saved in a "global" variable.
      * The same client instance is returned to any other call to `getApolloClient`, so _app.js gets the same authenticated client to give to ApolloProvider.
      */
-    const apolloClient = getApolloClient();
+    const apolloClient = getApolloClient(true);
 
     /**
      * Render the page through Apollo's `getDataFromTree` so the cache is populated.
@@ -38,7 +40,9 @@ class DocumentWithApollo extends Document {
      */
     const apolloState = apolloClient.extract();
 
-    console.log("document!", Object.keys(apolloState));
+    //console.log("document!", Object.keys(apolloState));
+
+    console.info(`Render Time: ${Date.now() - startTime} milliseconds.`);
 
     return { ...initialProps, apolloState };
   }

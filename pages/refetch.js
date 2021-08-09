@@ -9,7 +9,7 @@ export default function RefetchPage() {
     notifyOnNetworkStatusChange: true
   });
 
-  console.log({ loading, data, error, refetch });
+  console.log({ loading, error });
 
   // On page load, the `networkStatus` should be NetworkStatus.ready ( `7` ) if the data is in the cache, and the page should not need to re-render.
   const [cached, setCached] = useState(true);

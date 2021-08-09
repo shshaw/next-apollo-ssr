@@ -5,9 +5,9 @@ import { QUERY } from "../data/apollo";
 import List from "../components/List";
 
 export default function IndexPage() {
-  const { data, loading, error } = useQuery(QUERY);
+  const { data, loading, error } = useQuery(QUERY, { ssr: true });
 
-  console.log({ loading, data, error });
+  console.log({ loading, error });
 
   // On page load, the `networkStatus` should be NetworkStatus.ready ( `7` ) if the data is in the cache, and the page should not need to re-render.
   const [cached, setCached] = useState(true);
