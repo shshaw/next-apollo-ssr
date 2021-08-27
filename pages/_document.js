@@ -16,6 +16,8 @@ class DocumentWithApollo extends Document {
   }
 
   static async getInitialProps(ctx) {
+    console.clear();
+
     const startTime = Date.now();
 
     /**
@@ -39,8 +41,6 @@ class DocumentWithApollo extends Document {
      * Extract the cache to pass along to the client so the queries are "hydrated" and don't need to actually request the data again!
      */
     const apolloState = apolloClient.extract();
-
-    //console.log("document!", Object.keys(apolloState));
 
     console.info(`Render Time: ${Date.now() - startTime} milliseconds.`);
 
